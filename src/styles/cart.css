@@ -1,0 +1,51 @@
+.cart {
+    margin-left: 20px;
+}
+.cart-wrapp {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.cart li {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+.circle {
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+}
+.inCart {
+    border: none;
+    background: #044bb4;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    padding: 4px;
+}
+.delete-item {
+    background: none;
+    border: 1px solid black;
+    cursor: pointer;
+    color: black;
+}
+.chekout {
+    background: none;
+    border: 1px solid black;
+    transition: .2s;
+    cursor: pointer;
+    color: black;
+}
+.chekout:hover{
+    background: black;
+    color: white;
+}
+@media only screen and (max-width : 819px) {
+    .cart {
+        margin: 0;
+    }
+}

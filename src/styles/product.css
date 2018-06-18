@@ -1,0 +1,29 @@
+.products-wrapp {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: center;
+}
+.products li {
+    list-style: none;
+    border: 1px solid #eee;
+}
+.buy {
+    border: 1px solid black;
+    background: black;
+    cursor: pointer;
+    padding: 4px;
+    color: white;
+}
+.products li img { width: 100%; }
+@media only screen and (max-width : 1300px) {
+    .products-wrapp {
+        flex-wrap: wrap;
+    }
+}
+@media only screen and (max-width : 768px) {
+    .products-wrapp {
+        justify-content: center;
+        text-align: center;
+    }
+}
