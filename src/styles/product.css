@@ -12,6 +12,15 @@
     border: 1px solid black;
     background: black;
     cursor: pointer;
+    outline: none;
+    padding: 4px;
+    color: white;
+}
+.out_of_stock {
+    border: 1px solid red;
+    background: red;
+    cursor: pointer;
+    outline: none;
     padding: 4px;
     color: white;
 }

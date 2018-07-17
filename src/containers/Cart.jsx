@@ -8,14 +8,12 @@ import '../styles/cart.css'
 class Cart extends Component {
     handleClick = () => {
         alert('Thanks for buy:)');
-        setTimeout(() => {
-            this.props.clearCart();
-            document.location.reload();
-        }, 500);
+        setTimeout(() => (this.props.clearCart()), 500);
     }
     render() {
-        const { cart, deleteItem } = this.props
+        const total = this.props.cart.reduce((sum, curr) => (sum + curr.price * curr.quantity), 0)
         const lengthInCart = {fontWeight: 100, fontSize: 14}
+        const { cart, deleteItem } = this.props
 
         return (
             <div className="cart">
@@ -35,9 +33,7 @@ class Cart extends Component {
                                 </li>
                             )}
                             <br/>
-                            Total: ${cart.reduce((sum, curr) => (
-                                sum + curr.price * curr.quantity
-                            ), 0)}
+                            ${total}
                             <br/>
                             <button className="chekout" type="button" onClick={() => this.handleClick()}>Chekout</button>
                         </div>

@@ -6,34 +6,70 @@ import Ionicon from 'react-ionicons';
 import '../styles/product.css'
 
 class Products extends Component {
-    handleClick = (product, index) => {
-        this.props.addProduct(product, index)
+    handleClick = (product, index) => this.props.addProduct(product, index)
+    
+    eventOnQuantity = (product, index) => {
+        if (product.inventory !== 1 && product.inCart !== true) this.props.incrementQuantity(index)
     }
+
     render() {
-        const { products, decrementQuantity, incrementQuantity } = this.props
+        const { products, decrementQuantity  } = this.props
         const plus = <Ionicon icon="ios-add-circle-outline"/>
         const minus = <Ionicon icon="ios-remove-circle-outline"/>
+        const CircleButtons = ({inventory, quantity, index, product}) => (
+            <div>
+                <button 
+                    className="circle" 
+                    disabled={inventory === 0 ? true : false} 
+                    onClick={() => decrementQuantity(index)}>{minus}
+                </button>
+                {quantity}
+                <button 
+                    className="circle" 
+                    disabled={inventory === 0 ? true : false} 
+                    onClick={() => this.eventOnQuantity(product, index)}>{plus}
+                </button>
+            </div>
+        )
+        const SwitchButton = ({inCart, inventory, product, index}) => (
+            <div>
+                {
+                    inCart === false ? 
+                    <button 
+                        className={inventory !== 0 ? 'buy' : 'out_of_stock'} 
+                        disabled={inventory === 0 ? true : false} 
+                        onClick={() => this.handleClick(product, index)}>{inventory !== 0 ? 'Add to cart' : 'Out of stock'}
+                    </button> :
+                    <button className="inCart">In Cart</button>
+                }
+            </div>
+        )
 
         return (
             <div className="products">
                 <h3>Products</h3>
                 <div className="products-wrapp">
-                    {products.map((product, index) => {
-                        return (
+                    {products.map((product, index) => (
                             <li key={product.id}>
                                 <img src={product.image} alt={product.title}/><br/>
                                 {product.title}<br/>
                                 quantity: 
-                                <button className="circle" onClick={() => decrementQuantity(index)}>{minus}</button>
-                                {product.quantity >= 1 ? product.quantity : product.quantity = 1}
-                                <button className="circle" onClick={() => incrementQuantity(index)}>{plus}</button><br/>
+                                <CircleButtons
+                                    inventory={product.inventory} 
+                                    quantity={product.quantity}
+                                    product={product} 
+                                    index={index}>
+                                </CircleButtons>
                                 price: ${product.price}<br/>
-                                {product.inCart === false ?
-                                    <button className="buy" onClick={() => this.handleClick(product, index)}>Add to cart</button>
-                                :<button className="inCart">In Cart</button>}
+                                <SwitchButton 
+                                    inCart={product.inCart} 
+                                    inventory={product.inventory} 
+                                    product={product} 
+                                    index={index}>
+                                </SwitchButton>
                             </li>
                         )
-                    })}
+                    )}
                 </div>
             </div>
         )

@@ -23,7 +23,7 @@ export const incrementQuantity = index => {
 
 export const decrementQuantity = index => {
     return {
-        type: 'DECREMENT_QUANTITY',
+        type: 'DECREMENT_QUANTITY', 
         payload: index
     }
 }

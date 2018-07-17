@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import Products from './containers/Products'
-import Cart from './containers/Cart'
-import './App.css';
+import logo from '../logo.svg';
+import Products from '../containers/Products'
+import Cart from '../containers/Cart'
+import '../App.css';
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
         <header className="App-header">
           <div className="container">
             <img src={logo} className="App-logo" alt="logo"/>
-            <h1 className="App-title">Welcome to React</h1>
+            <h1 className="App-title">Welcome to React and gitShop</h1>
           </div>
         </header>
         <div className="app-main">
