@@ -19,7 +19,7 @@
 .out_of_stock {
     border: 1px solid red;
     background: red;
-    cursor: pointer;
+    cursor: not-allowed;
     outline: none;
     padding: 4px;
     color: white;
