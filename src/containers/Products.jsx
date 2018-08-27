@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { addProduct, incrementQuantity, decrementQuantity } from '../actions/index';
 import { connect } from 'react-redux';
+import { addProduct, incrementQuantity, decrementQuantity } from '../actions/index';
 import Ionicon from 'react-ionicons';
+
 import '../styles/product.css'
 
 class Products extends Component {
     handleClick = (product, index) => this.props.addProduct(product, index)
     
-    eventOnQuantity = (product, index) => {
-        if (product.inventory !== 1 && product.inCart !== true) this.props.incrementQuantity(index)
-    }
+    eventOnQuantity = (product, index) => {if (product.inventory !== 1 && !product.inCart) this.props.incrementQuantity(index)}
 
     render() {
         const { products, decrementQuantity  } = this.props
@@ -20,28 +19,26 @@ class Products extends Component {
             <div>
                 <button 
                     className="circle" 
-                    disabled={inventory === 0 ? true : false} 
+                    disabled={!inventory}
                     onClick={() => decrementQuantity(index)}>{minus}
                 </button>
                 {quantity}
                 <button 
                     className="circle" 
-                    disabled={inventory === 0 ? true : false} 
+                    disabled={!inventory} 
                     onClick={() => this.eventOnQuantity(product, index)}>{plus}
                 </button>
             </div>
         )
         const SwitchButton = ({inCart, inventory, product, index}) => (
             <div>
-                {
-                    inCart === false ? 
+                {!inCart ? 
                     <button 
-                        className={inventory !== 0 ? 'buy' : 'out_of_stock'} 
-                        disabled={inventory === 0 ? true : false} 
-                        onClick={() => this.handleClick(product, index)}>{inventory !== 0 ? 'Add to cart' : 'Out of stock'}
+                        className={inventory ? 'buy' : 'out_of_stock'} 
+                        disabled={!inventory} 
+                        onClick={() => this.handleClick(product, index)}>{inventory ? 'Add to cart' : 'Out of stock'}
                     </button> :
-                    <button className="inCart">In Cart</button>
-                }
+                    <button className="inCart">In Cart</button>}
             </div>
         )
 
@@ -49,26 +46,25 @@ class Products extends Component {
             <div className="products">
                 <h3>Products</h3>
                 <div className="products-wrapp">
-                    {products.map((product, index) => (
-                            <li key={product.id}>
-                                <img src={product.image} alt={product.title}/><br/>
-                                {product.title}<br/>
-                                quantity: 
-                                <CircleButtons
-                                    inventory={product.inventory} 
-                                    quantity={product.quantity}
-                                    product={product} 
-                                    index={index}>
-                                </CircleButtons>
-                                price: ${product.price}<br/>
-                                <SwitchButton 
-                                    inCart={product.inCart} 
-                                    inventory={product.inventory} 
-                                    product={product} 
-                                    index={index}>
-                                </SwitchButton>
-                            </li>
-                        )
+                    {products.map((product, index) => 
+                        <li key={product.id}>
+                            <img src={product.image} alt={product.title}/><br/>
+                            {product.title}<br/>
+                            quantity: 
+                            <CircleButtons
+                                inventory={product.inventory} 
+                                quantity={product.quantity}
+                                product={product} 
+                                index={index}>
+                            </CircleButtons>
+                            price: ${product.price}<br/>
+                            <SwitchButton 
+                                inCart={product.inCart} 
+                                inventory={product.inventory} 
+                                product={product} 
+                                index={index}>
+                            </SwitchButton>
+                        </li>
                     )}
                 </div>
             </div>

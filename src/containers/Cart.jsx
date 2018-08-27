@@ -1,32 +1,33 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { clearCart, deleteItem } from '../actions/index'
 import { connect } from 'react-redux';
+import { clearCart, deleteItem } from '../actions/index'
 import Ionicon from 'react-ionicons';
+
 import '../styles/cart.css'
 
 class Cart extends Component {
     handleClick = () => {
-        alert('Thanks for buy:)');
+        alert('Thanks for buy :)');
         setTimeout(() => (this.props.clearCart()), 500);
     }
     render() {
-        const total = this.props.cart.reduce((sum, curr) => (sum + curr.price * curr.quantity), 0)
-        const lengthInCart = {fontWeight: 100, fontSize: 14}
         const { cart, deleteItem } = this.props
+        const total = cart.reduce((sum, curr) => (sum + curr.price * curr.quantity), 0)
+        const lengthInCart = {fontWeight: 100, fontSize: 14}
 
         return (
             <div className="cart">
-                <h3>Cart <Ionicon icon="ios-cart"/> <span style={lengthInCart}>({cart.length})</span></h3>
+                <h3>Cart <Ionicon icon="ios-cart"/><span style={lengthInCart}>({cart.length})</span></h3>
                 <div className="cart-wrapp">
-                    {cart.length !== 0  ? 
+                    {cart.length ? 
                         <div>
                             {cart.map((item, index) => 
                                 <li key={item.id}>
-                                    {item.title} <button className="delete-item" onClick={() => deleteItem(index, item)}>x</button><br/>
+                                    {item.title}
+                                    <button className="delete-item" onClick={() => deleteItem(index, item)}>x</button><br/>
                                     <img src={item.image} alt={item.title}/><br/>
-                                    quantity: 
-                                    {item.quantity}
+                                    quantity: {item.quantity}
                                     <br/>
                                     price: ${item.price}
                                     <hr/>

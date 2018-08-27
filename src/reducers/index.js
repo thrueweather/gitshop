@@ -42,7 +42,7 @@ const reducer = (state = initialState, action) => {
         case types.ADD_PRODUCT:
             return Object.assign({}, state, {
                 cart: [...state.cart, action.payload],
-                products: [...state.products.map((product, index) => {
+                products: [...state.products].map((product, index) => {
                     if (index === action.index) {
                         return Object.assign({}, product, {
                             inCart: true,
@@ -50,13 +50,13 @@ const reducer = (state = initialState, action) => {
                         });
                     }
                     return product;
-                })]
+                })
             });
         case types.DELETE_PRODUCT:
             return Object.assign({}, state, {
                 cart: [...state.cart.slice(0, action.payload), ...state.cart.slice(action.payload + 1)],
-                products: [...state.products.map((product, index) => {
-                    if (index === -1 + action.id) {
+                products: [...state.products].map((product, index) => {
+                    if (index === - 1 + action.id) {
                         return Object.assign({}, product, {
                             inCart: false,
                             inventory: product.inventory + product.quantity,
@@ -64,11 +64,11 @@ const reducer = (state = initialState, action) => {
                         });
                     }
                     return product;
-                })]
+                })
             });
         case types.INCREMENT_QUANTITY:
             return Object.assign({}, state, {
-                products: [...state.products.map((product, index) => {
+                products: [...state.products].map((product, index) => {
                     let { quantity, inventory } = product
                     if (index === action.payload) {
                         return Object.assign({}, product, {
@@ -77,11 +77,11 @@ const reducer = (state = initialState, action) => {
                         });
                     }
                     return product;
-                })]
+                })
             });
         case types.DECREMENT_QUANTITY:
             return Object.assign({}, state, {
-                products: [...state.products.map((product, index) => {
+                products: [...state.products].map((product, index) => {
                     let { quantity, inventory } = product
                     if (index === action.payload) {
                         return Object.assign({}, product, {
@@ -90,17 +90,17 @@ const reducer = (state = initialState, action) => {
                         });
                     }
                     return product;
-                })]
+                })
             });
         case types.CLEAR_CART:
             return Object.assign({}, state, {
                 cart: [],
-                products: [...state.products.map(product => {
+                products: [...state.products].map(product => {
                     return Object.assign({}, product, {
                         inCart: false,
                         quantity: 1
                     });
-                })]
+                })
             });
         default:
             return state;
